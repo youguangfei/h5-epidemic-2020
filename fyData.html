@@ -354,28 +354,37 @@
 			            return params.seriesName+'<br />'+params.name+'：'+params.value
 			        }//数据格式化
 			    },
-			    legend: {
-		            x:'center',
-		            y: 'bottom'
-		        },
-			    visualMap: {
-			        min: 0,
-			        max: 50,
-			        align: 'auto',
-			        // type: 'piecewise',//是否连续#
-			        left: 'left',
-			        top: 'bottom',
-			        text: ['高','低'],    //取值范围的文字
-					splitList: [   
-									{start: 1, end:99},{start: 100, end: 499},  
-									{start: 500, end: 999},{start: 1000, end: 4999},  
-									{start: 5000}
-					            ],
-			        inRange: {
-						color:['#FCCEA2','#FF9D3F','#FD5C3B',  '#EE0101','#A53A01'],
-			        },
-			        show:true//图注
+			    grid: {
+			    	bottom: '40%',
+			    	right: '5%',
+			    	left: '5%'
 			    },
+//			    legend: {
+//		            orient: 'horizontal',
+//		            y:'bottom',
+//		            x:'center',
+//		            data:['重庆市区县']
+//		        },
+		        dataRange: {
+		            left: 5,
+		            right: 20,
+		            y: 'bottom',
+		            bottom: 30,
+		            orient: 'horizontal',
+		            itemGap: 5,
+		            itemWidth: 10, 
+		            itemHeight: 10,
+		            padding:0,
+		            splitList: [
+		                {start: 1,end:99, label: '1-99', color: '#FCCEA2'},
+		                {start: 100, end: 499, label: '100-499', color: '#FF9D3F'},
+						{start: 500, end: 999, label: '500-999', color: '#FD5C3B'}, 
+						{start: 1000, end: 4999, label: '1000-4999', color: '#EE0101',fontSize: 12},
+						{start: 5000,label: '>5000', color: '#A53A01'},
+		            ],
+		            color: ['#eee', '#949fb1', '#f3ce85']
+		        },
+			    
 			    geo: {
 			        map: 'china',
 			        roam: false,//不开启缩放和平移
