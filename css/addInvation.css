@@ -1,0 +1,304 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.helpPageBox,.mainContentBox{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+.mainContentBox{
+    object-fit:cover;
+    background-image:url('../img/addInvationBg1.png');
+    background-size:100% 100%;
+}
+/* 不可点击 */
+.notClick{
+    pointer-events:none;
+}
+/* 隐藏的input处理键盘 */
+.hideInput{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+}
+/* 弹窗 */
+.toastMessageModal,.messageModal{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    background: rgba(53, 44, 34, 0.95);
+    border-radius: 0.3rem;
+    text-align: center;
+    font-size: 0.43rem;
+}
+.toastMessageModal{
+    display: none;
+    width: 5.33rem;
+    height: 1.07rem;
+    line-height: 40px;
+    color: #fff;
+}
+.messageModal{
+    display: none;
+    width: 8rem;
+    height: 4.4rem;
+}
+.messageMdUl{
+    width: 100%;
+    margin-top: 0.8rem;
+    text-align:center;
+    font-size: 0.43rem;
+    color: #fff;
+}
+.messageMdUl li{
+    height: 0.68rem;
+    line-height: 0.68rem;
+}
+.messageOkBtn{
+    width: 4.27rem;
+    height: 1.08rem;
+    text-align: center;
+    line-height: 1.08rem;
+    margin: 0.4rem auto 0;
+    border: none;
+    outline: none;
+    border-radius: 0.53rem;
+    font-size: 0.37rem;
+    color: #fff;
+    background-image: repeating-linear-gradient(to right,#FF0404,#FF630A );
+}
+/* 用户信息 */
+.userBox{
+    position: absolute;
+    left: 0.43rem;
+    top: 1.07rem;
+    width: 3.2rem;
+    height: 0.96rem;
+    border-radius: 0.5rem;
+    line-height: 0.96rem;
+    background: rgba(00,00,00,0.1);
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+}
+.userIcon{
+    width:  0.96rem;
+    height:  0.96rem;
+    line-height:  0.96rem;
+    border-radius: 50%;
+    background-image:url(../img/icon.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+.userName{
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex:1;
+    font-size: 0.32rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-indent: 0.13rem;
+}
+
+/* 顶部字幕滚动 */
+.top{
+    position:absolute;
+    left:0%;
+    top:0%;
+    padding-left: 10px;
+    overflow: hidden;
+    width:100%;
+    height: 0.86rem;
+    line-height: 0.86rem;
+    font-size: 0.43rem;
+    background: #f00;
+    color: #fff;
+    z-index: 100;
+    display:flex;
+    display:-webkit-flex;
+    justify-content: space-between;
+}
+.scrollText{
+    position:absolute;
+    left:0%;
+    top:0%;
+    overflow: hidden;
+}
+.scrollText:after{ 
+    position: absolute;
+    content: "";
+    clear: both;
+}
+.scrollText p{
+    float:left;
+    margin-left: 20px;
+}
+/* 底部提交按钮 */
+.bottomSubmitBox,.registerBox,.registerSuccessBox{
+    position:absolute;
+    width:100%;   
+    bottom:0;
+    left: 0;
+    right: 0;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    background: #fff;
+    z-index: 100;
+}
+/* 验证手机号页面 */
+.bottomSubmitBox{
+    height: 4.5rem;
+}
+.commonInput{
+    height: 1.28rem;
+    line-height: 1.28rem;
+    border-radius: 0.65rem;
+    border: none;
+    outline: none;
+    font-size: 0.64rem; 
+    color: rgba(153, 153, 153, 1);  
+}
+.submitMobile{
+    width: 88%;
+    display: block;
+    position: relative;
+    margin: 0.43rem auto 0;
+    background: rgba(241, 241, 241, 1);
+    padding-left: 0.65rem;
+}
+.errorMobile{
+    display: none;
+    width: 88%;
+    margin: 0.08rem auto 0;
+    text-indent:  0.65rem;
+    font-size: 0.52rem;
+    color: red;
+}
+.submitBtn{
+    width: 88%;
+    position: absolute;
+    bottom:0.54rem;
+    left: 50%;
+    transform: translate(-50%,0);
+    cursor: pointer;
+    background-image: repeating-linear-gradient(to bottom,  #FF630A ,#FF0404);
+    color: #fff;
+    text-align:center;
+}
+/* 注册页面 */
+.registerBox{
+    display: none;
+    height: 6.85rem;
+}
+.codeBox{
+    width: 88%;
+    margin: 0.4rem auto;
+}
+.codeInput{
+    width: 5.33rem;
+    background: #F1F1F1;
+    padding-left: 0.65rem;
+    text-align: left;
+}
+.sendCodeBtn{
+    width: 3.2rem;
+    color: #fff;
+    font-size: 0.43rem;
+    background-image: repeating-linear-gradient(to bottom,  #FF630A ,#FF0404);
+}
+.sendCodeBtn.disableClick{
+    opacity: 0.5;
+}
+/* 注册页面服务条款 */
+.agreeContent{
+    width: 88%;
+    margin: 0 auto;
+    font-size: 14px;
+    color:#666666;
+}
+.agreeContent i{
+  display: inline-block;
+  width: 0.38rem;
+  height: 0.38rem;
+  background-image: url(../img/xiyiNo.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+.agreeContent i.active{
+    background-image: url(../img/xieyiYes.png);
+}
+.agreeText{
+    margin-left: 0.08rem;
+}
+.agreeText strong{
+    font-weight: normal;
+    color: rgba(62, 96, 204, 1);
+}
+.agreeText strong a{
+    text-decoration: none;
+}
+/* 注册成功页面 */
+.registerSuccessBox{
+    display: none;
+    height: 4.88rem;
+    text-align: center;
+}
+.registerSuccessBox img{
+    width: 1.28rem;
+    height: 1.28rem;
+    margin-top: 0.59rem;
+}
+.registerSuccessBox p{
+    color: #999999;
+    font-size: 0.43rem;
+}
+
+/*底下滚动条去掉*/
+.prism-controlbar,
+.prism-controlbar-bg,
+.prism-fullscreen-btn,
+.prism-cc-btn,
+.prism-setting-btn,
+.prism-volume,
+.volume-icon,
+.prism-live-display{
+    display: none;
+}
+/*中间播放按钮动画去掉*/
+.prism-animation{
+    display: none;
+}
+
+
+
+
+
+
