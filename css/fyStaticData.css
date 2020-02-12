@@ -125,14 +125,14 @@ i{
 }
 /*省份数据列表*/
 .proviceListBox{
-	height: 10.15rem;
+	height: auto;
 	overflow-y: hidden;
 	font-size: 0.43rem;
 	background: #fff;
     margin-top: 0.27rem;
 }
 .proviceTableBox{
-	height: 9.34rem;
+	height: auto;
 }
 .proviceListBox h3{
 	width:100%;
@@ -147,7 +147,7 @@ i{
 }
 .proviceShowList{
 	width: 100%;
-    height: 8.27rem;
+    height: auto;
     overflow-y: auto;
 }
 .proviceTableBox .theadUl{
@@ -203,7 +203,13 @@ i{
     height: 1.52rem;
     right: 0.53rem;
 }
-
+/*查看更多地区*/
+.lookMoreProvice{
+	display: none;
+	text-align: center;
+    padding-top: 0.43rem;
+    padding-bottom: 0.35rem;
+}
 
 
 

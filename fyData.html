@@ -32,31 +32,27 @@
 							<p class="fyColorRed explainText fyRed">确诊</p>
 							<p class="fyColorRed number"></p>
 							<p class="addNumber">
-								较昨日+<span>3905</span>
+								较昨日+<span></span>
 							</p>
 						</div> 
 						<div id="allqYsata" class="flex1">
 							<p class="fycolorYel explainText">疑似</p>
 							<p class="fycolorYel number"></p>
-							<p class="addNumber">较昨日+<span>3971</span></p>
+							<p class="addNumber">较昨日+<span></span></p>
 						</div>
 						<div id="allDeathata" class="flex1">
 							<p class="fycolorBlack explainText">死亡</p>
 							<p class="fycolorBlack number"></p>
-							<p class="addNumber">较昨日+<span>3971</span></p>
+							<p class="addNumber">较昨日+<span></span></p>
 						</div>
 						<div id="allCuredData" class="flex1">
 							<p class="fycolorGreen explainText">治愈</p>
 							<p class="fycolorGreen number"></p>
-							<p class="addNumber">较昨日+<span>3971</span></p>
+							<p class="addNumber">较昨日+<span></span></p>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			
 			
 			
 			<div class="fyCenterBox">
@@ -90,7 +86,7 @@
 						</ul>
 						<div class="proviceShowList">
 							<ul id="proviceTableUl" class="proviceTableUl">
-								<li class="disFlex">
+								<!--<li class="disFlex">
 									<span>湖北省</span>
 									<span>19665</span>
 									<span>549</span>
@@ -106,7 +102,7 @@
 										<span>549</span>
 										<span>633</span>
 									</li>
-								</ul>
+								</ul>-->
 								
 							</ul>
 						</div>
@@ -162,6 +158,7 @@
 		var fyDataObj={
 			history: [],
 			last7History:[],
+			appendProviceListHtml:"",
 			getFyDetailData(){
 				$.ajax({
 					type: "GET",
@@ -253,8 +250,6 @@
 					echartsInitLine2(incrObj);
 				}
 			},
-			
-			
 			renderAllDataHtml(fyResData){
 				$("#allqZdata").children(".number").html(fyResData.diagnosed);
 				$("#allqYsata").children(".number").html(fyResData.suspect);
@@ -272,8 +267,10 @@
 				var list = fyResData.area;
 				var proviceHtmlStr ="";
 				if(list && list.length>0){
-					list.forEach((item)=>{
-						proviceHtmlStr += `<li class="disFlex proviceLi">
+					list.forEach((item,index)=>{						
+						//该循环内增加的str
+						let currentAddHtml = ""; 
+						currentAddHtml += `<li class="disFlex proviceLi">
 										<span>${item.preProvinceName}</span>
 										<span>${item.confirmedCount}</span>
 										<span>${item.deadCount}</span>
@@ -294,9 +291,30 @@
 										<span>${item2.curedCount}</span>
 									</li>`;
 						})
-						proviceHtmlStr += `<ul class="childCityUl">${childCitiStr}</ul>`;
+						currentAddHtml += `<ul class="childCityUl">${childCitiStr}</ul>`;
+						if(index >= 5){
+							fyDataObj.appendProviceListHtml += currentAddHtml;
+						}else{
+							proviceHtmlStr += currentAddHtml;
+						}
 					})
 					$("#proviceTableUl").html(proviceHtmlStr);
+					$("#lookMoreProvice").show();
+//					收缩展开效果
+					fyDataObj.provinceToggle();
+//					查看更多地区
+					fyDataObj.lookMoreProvince();
+				}
+				
+			},
+			lookMoreProvince(){
+				$("#lookMoreProvice").on("click",function(){
+					var $this = $(this);
+					$("#proviceTableUl").append(fyDataObj.appendProviceListHtml);
+					$this.hide();
+				})
+			},
+			provinceToggle(){
 					$("#proviceTableUl").on("click",".downUpLi",function(){
 						var $this = $(this);
 						$arrow= $this.find(".downArrow");
@@ -308,8 +326,6 @@
 							$this.parents(".proviceLi").next().hide();
 						}
 					})
-				}
-				
 			},
 			renderMapData(fyResData){
 				var areaList = fyResData.area;
@@ -356,8 +372,6 @@
 			    tooltip: {
 			    	position: 'bottom',
 			        formatter:function(params,ticket, callback){
-			        	console.log(params)
-			        	console.log(ticket);
 			        	let str = params.name+'<br/>'+ '确诊病例'+'：'+params.value+'<br/>'+ '死亡病例'+'：'+params.data.deathValue || 0;
 			            return str;
 			        }//数据格式化
