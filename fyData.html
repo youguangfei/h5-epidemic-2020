@@ -314,13 +314,17 @@
 			renderMapData(fyResData){
 				var areaList = fyResData.area;
 				var staticMapData = [];
+				let selectedIndex =0;
 				if(areaList && areaList.length>0){
-					areaList.forEach((item)=>{
-						var json ={name: item.provinceName, value: item.confirmedCount};
+					areaList.forEach((item,index)=>{
+						var json ={name: item.provinceName, value: item.confirmedCount,deathValue: item.deadCount};
+						if(item.provinceName == "湖北"){
+							selectedIndex = index;
+						}
 						staticMapData.push(json);
 					})
 					console.log(staticMapData);
-					echartsInitMap(staticMapData);
+					echartsInitMap(staticMapData,selectedIndex);
 				}
 				
 			},
@@ -334,7 +338,7 @@
 		
 		
 		// 渲染地图
-		function echartsInitMap(mapData){
+		function echartsInitMap(mapData,selectedIndex){
 			var myChart = echarts.init(document.getElementById('fyMapBox'));
 			console.log(myChart);
 			
@@ -350,8 +354,12 @@
 			        },
 			    },
 			    tooltip: {
+			    	position: 'bottom',
 			        formatter:function(params,ticket, callback){
-			            return params.seriesName+'<br />'+params.name+'：'+params.value
+			        	console.log(params)
+			        	console.log(ticket);
+			        	let str = params.name+'<br/>'+ '确诊病例'+'：'+params.value+'<br/>'+ '死亡病例'+'：'+params.data.deathValue || 0;
+			            return str;
 			        }//数据格式化
 			    },
 			    grid: {
@@ -359,18 +367,14 @@
 			    	right: '5%',
 			    	left: '5%'
 			    },
-//			    legend: {
-//		            orient: 'horizontal',
-//		            y:'bottom',
-//		            x:'center',
-//		            data:['重庆市区县']
-//		        },
-		        dataRange: {
+		        visualMap: {
+		        	show: true,
 		            left: 5,
 		            right: 20,
 		            y: 'bottom',
 		            bottom: 30,
 		            orient: 'horizontal',
+		            textGap: 3,
 		            itemGap: 5,
 		            itemWidth: 10, 
 		            itemHeight: 10,
@@ -382,7 +386,6 @@
 						{start: 1000, end: 4999, label: '1000-4999', color: '#EE0101',fontSize: 12},
 						{start: 5000,label: '>5000', color: '#A53A01'},
 		            ],
-		            color: ['#eee', '#949fb1', '#f3ce85']
 		        },
 			    
 			    geo: {
@@ -415,11 +418,19 @@
 			            type: 'map',
 						coordinateSystem:"geo",
 			            geoIndex: 0,
+			            selectedMode : 'multiple',
 			            data: mapData
 			        }
 			    ]
 			
 			});
+			
+			myChart.dispatchAction({
+			    type: 'showTip',
+			    seriesIndex:0,  // 显示第几个series
+                dataIndex: selectedIndex // 显示第几个数据
+
+			})
 			
 		}
 		
@@ -438,7 +449,7 @@
 			        },
 			    },
 			    tooltip: {
-			        trigger: 'axis'
+			        trigger: 'axis',
 			    },
 			    legend: {
 			    	right: "12px",
@@ -448,6 +459,7 @@
 			    grid: {
 			        left: '3%',
 			        right: '4%',
+			        top: '25%',
 			        bottom: '3%',
 			        containLabel: true
 			    },
@@ -469,9 +481,13 @@
 			    yAxis: [
 					{
 						type: 'value' ,
+						name: '确诊',
+						nameLocation: 'end'
 					},
 					{
 						type: 'value' ,
+						name: '死亡，治愈',
+						nameLocation: 'end'
 					},
 			   ],
 			    series: [
@@ -579,7 +595,7 @@
 			var currentMinutes = date.getMinutes();
 			var currentSeconds = date.getSeconds();
 			
-			var currentTime = currentYear+"/"+addZero(currentMonth) +"/"+addZero(currentDate) + " " + addZero(currentHours) +":"+ addZero(currentMinutes);
+			var currentTime = currentYear+"年"+addZero(currentMonth) +"月"+addZero(currentDate) + " " + addZero(currentHours) +":"+ addZero(currentMinutes);
 			console.log(currentTime);
 			$("#currentTime").html(currentTime);
 		}
