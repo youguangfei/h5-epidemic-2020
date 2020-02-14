@@ -244,6 +244,15 @@
 			},
 			renderAllDataHtml(fyResData){
 				let historyday1 = fyResData.history[0];
+				let deathAll = fyResData.death;
+				let deathYeas = historyday1.deathsNum;
+				
+				fyDataObj.renderHistoryTotal(fyResData);
+				
+				
+			},
+			renderHistoryTotal(fyResData){
+				let historyday1 = fyResData.history[0];
 				let historyday2 = fyResData.history[1];
 				
 				
@@ -259,11 +268,11 @@
 				
 				
 				$("#allqZdata .addNumber").find("span").html(confirmIncr);
-				$("#allqYsata .addNumber").find("span").html(fyResData.suspectIncr);
+				$("#allqYsata .addNumber").find("span").html(historyday1.suspectedIncrStr);
 				$("#allDeathata .addNumber").find("span").html(deathIncr);
 				$("#allCuredData .addNumber").find("span").html(curesNumIncr);
-				
 			},
+			
 			renderProviceList(fyResData){
 				var list = fyResData.area;
 				var proviceHtmlStr ="";
