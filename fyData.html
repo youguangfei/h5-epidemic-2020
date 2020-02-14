@@ -243,16 +243,25 @@
 				}
 			},
 			renderAllDataHtml(fyResData){
-				$("#allqZdata").children(".number").html(fyResData.diagnosed);
-				$("#allqYsata").children(".number").html(fyResData.suspect);
-				$("#allDeathata").children(".number").html(fyResData.death);
-				$("#allCuredData").children(".number").html(fyResData.cured);
+				let historyday1 = fyResData.history[0];
+				let historyday2 = fyResData.history[1];
+				
+				
+				$("#allqZdata").children(".number").html(historyday1.confirmedNum);
+				$("#allqYsata").children(".number").html(historyday1.suspectedNum);
+				$("#allDeathata").children(".number").html(historyday1.deathsNum);
+				$("#allCuredData").children(".number").html(historyday1.curesNum);
 				
 //				新增data
-				$("#allqZdata .addNumber").find("span").html(fyResData.diagnosedIncr);
+				let confirmIncr = historyday1.confirmedNum - historyday2.confirmedNum;
+				let deathIncr = historyday1.deathsNum - historyday2.deathsNum;
+				let curesNumIncr = historyday1.curesNum - historyday2.curesNum;
+				
+				
+				$("#allqZdata .addNumber").find("span").html(confirmIncr);
 				$("#allqYsata .addNumber").find("span").html(fyResData.suspectIncr);
-				$("#allDeathata .addNumber").find("span").html(fyResData.deathIncr);
-				$("#allCuredData .addNumber").find("span").html(fyResData.curedIncr);
+				$("#allDeathata .addNumber").find("span").html(deathIncr);
+				$("#allCuredData .addNumber").find("span").html(curesNumIncr);
 				
 			},
 			renderProviceList(fyResData){
