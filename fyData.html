@@ -9,10 +9,21 @@
 	<title>抗击肺炎</title>
 	<link rel="stylesheet" href="css/commonFy.css">
 	<link rel="stylesheet" href="css/fyStaticData.css">
+	<style>
+		.tab-bar{
+			display: none;
+		}
+		.fyPageBox{
+			display: none;
+		}
+		
+	</style>
 </head>
 
 <body>
 	<div class="main">
+		<iframe id="mainContent" width="100%" height="1500px" src="https://i.snssdk.com/feoffline/hot_list/template/hot_list/forum_tab.html?activeWidget=1" vspace="-170" style="margin-top:-155px;margin-left:-2px;"></iframe>
+		
 		<div class="fyPageBox" id="fyPageBox">
 			<div class="fyTopBox">
 				<div class="commonBg fyBannerBox" id="fyBannerBox"></div>
@@ -146,6 +157,8 @@
 		// fyDataURL = "https://www.tianqiapi.com/api?version=epidemic&appid=23035354&appsecret=8YvlPNrz"
 		// 自己注册的
 		fyDataURL = "https://www.tianqiapi.com/api?version=epidemic&appid=89557552&appsecret=ZEg2x1E7"
+		fyDataURL ="https://server.toolbon.com/home/tools/getPneumonia"
+		
 		let fyResData ={};
 		var fyDataObj={
 			history: [],
@@ -244,6 +257,15 @@
 			},
 			renderAllDataHtml(fyResData){
 				let historyday1 = fyResData.history[0];
+				let deathAll = fyResData.death;
+				let deathYeas = historyday1.deathsNum;
+				
+				fyDataObj.renderHistoryTotal(fyResData);
+				
+				
+			},
+			renderHistoryTotal(fyResData){
+				let historyday1 = fyResData.history[0];
 				let historyday2 = fyResData.history[1];
 				
 				
@@ -259,11 +281,11 @@
 				
 				
 				$("#allqZdata .addNumber").find("span").html(confirmIncr);
-				$("#allqYsata .addNumber").find("span").html(fyResData.suspectIncr);
+				$("#allqYsata .addNumber").find("span").html(historyday1.suspectedIncrStr);
 				$("#allDeathata .addNumber").find("span").html(deathIncr);
 				$("#allCuredData .addNumber").find("span").html(curesNumIncr);
-				
 			},
+			
 			renderProviceList(fyResData){
 				var list = fyResData.area;
 				var proviceHtmlStr ="";
